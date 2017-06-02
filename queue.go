@@ -26,7 +26,11 @@ func main() {
 
 func (queue *Queue) push(val int) {
     queue.rear++
-    queue.q[queue.rear] = val
+    if queue.rear < size {
+        queue.q[queue.rear] = val
+    } else {
+        return -1
+    }
 }
 
 func (queue *Queue) remove() int {
