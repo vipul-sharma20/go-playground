@@ -4,6 +4,8 @@ import (
     "io/ioutil"
     "net/http"
     "fmt"
+    "html/template"
+    "os"
 )
 
 type Test struct {
@@ -25,6 +27,19 @@ func catRequest() {
     fmt.Println(string(body))
 }
 
+func buildTemplate() {
+    t := template.New("test")
+    t, _ = t.ParseFiles("test.html")
+    test := Test{name: "Vipul"}
+    t.Execute(os.Stdout, test)
+
+    t := template.New("fieldname example")
+    t, _ = t.Parse("hello {{.UserName}}!")
+    p := Person{UserName: "Astaxie"}
+    t.Execute(os.Stdout, p)
+}
+
 func main() {
     catRequest()
+    buildTemplate()
 }
